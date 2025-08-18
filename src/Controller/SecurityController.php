@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
-#[Route('/api', name: 'api_')]
+#[Route('/api', name: '')]
 final class SecurityController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
@@ -25,7 +25,7 @@ final class SecurityController extends AbstractController
          // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
        
-        return $this->json(['message' => 'Auth']);
+        return $this->json(['message' => 'Auth Success']);
         
       }
     
@@ -35,7 +35,7 @@ final class SecurityController extends AbstractController
         $email = $request->request->get('email');
         $username = $request->request->get('username');
         $plaintextPassword = $request->request->get('password');
-        $role = $request->request->get('role');
+        // $role = $request->request->get('role');
    
         $user = new User();
 
@@ -46,7 +46,7 @@ final class SecurityController extends AbstractController
         $user->setEmail($email);
         $user->setUsername($username);
         $user->setPassword($hashedPassword);
-        $user->setRoles([$role]);
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setDateCreated(new \DateTime());
 
         $errors = $validator->validate($user);
