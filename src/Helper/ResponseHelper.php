@@ -35,5 +35,10 @@ class ResponseHelper
         ] , $code);
     }
 
+    public static function sendResponse($status='send' , $message = null  , $data = [] , $code = 201 ): JsonResponse
+    {
+        return new JsonResponse(['status' => $status, 'message' => $message ,'data'=>$data ] , $code);
+    }
+
    
 }

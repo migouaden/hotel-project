@@ -26,4 +26,11 @@ final class RoomController extends AbstractController
         return ResponseHelper::success('success' , 'Receive Service', $data);
 
     }
+
+    #[Route('/room/create', name: 'create_room')]
+    public function createRoom():JsonResponse
+    {
+        $data =  $this->roomService->createRoom();
+        return ResponseHelper::sendResponse('success' , 'Send Data', $data);
+    }
 }
