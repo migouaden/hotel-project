@@ -1,7 +1,6 @@
 <?php
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Room;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RoomRepository;
@@ -13,7 +12,7 @@ class RoomService
 
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager , )
+    public function __construct(EntityManagerInterface $entityManager  )
     {
         $this->entityManager= $entityManager;
     }
@@ -24,36 +23,4 @@ class RoomService
         return  $message ;
     }
 
-    public function createRoom(array $room):Room
-    {
-        $room = new Room();
-        $room->setName('Room1');
-        $room->setDescription('text');
-        $room->setBasePrice(100);
-        $room->setMaxGuests(2);
-        $room->setBedCount(2);
-        $room->setSize(15);
-        $room->setCreatedAt(new \DateTime());
-        $room->setActive(1);
-
-        $this->entityManager->persist($room);
-        $this->entityManager->flush();
-
-        return $room;
-    }
-    
-    public function getActiveRoom(){
-        $rooms = $this->entityManager->getRepository(Room::class)->findActiveRoom(1);
-
-        $result = [];
-        foreach ($rooms as $room) {
-            $result[] = [
-                'id' => $room->getId(),
-                'name' => $room->getName(),
-                'active' => $room->getActive(),
-            ];
-        }
-
-        return $result;
-    }
 }

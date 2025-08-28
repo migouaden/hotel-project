@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -69,4 +69,12 @@ final class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    #[Route('/user/auth', name: 'current_user', methods: ['GET'])]
+    public function getCurrentAuth():JsonResponse
+    {
+        $user = $this->getUser();
+        return $this->json(['user'=>$user->getUserIdentifier()]);
+    }
+
 }
